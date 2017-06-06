@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name></display-name>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Login_Do</servlet-name>
+    <servlet-class>Easyui_Control.Login_Do</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Reg_Do</servlet-name>
+    <servlet-class>Easyui_Control.Reg_Do</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Add_Do</servlet-name>
+    <servlet-class>Easyui_Control.Add_Do</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Table_Do</servlet-name>
+    <servlet-class>Easyui_Control.Table_Do</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Update_Do</servlet-name>
+    <servlet-class>Easyui_Control.Update_Do</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Del_Do</servlet-name>
+    <servlet-class>Easyui_Control.Del_Do</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Nodes_Do</servlet-name>
+    <servlet-class>Easyui_Control.Nodes_Do</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login_Do</servlet-name>
+    <url-pattern>/servlet/Login_Do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Reg_Do</servlet-name>
+    <url-pattern>/servlet/Reg_Do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Add_Do</servlet-name>
+    <url-pattern>/servlet/Add_Do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Table_Do</servlet-name>
+    <url-pattern>/servlet/Table_Do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Update_Do</servlet-name>
+    <url-pattern>/servlet/Update_Do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Del_Do</servlet-name>
+    <url-pattern>/servlet/Del_Do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Nodes_Do</servlet-name>
+    <url-pattern>/servlet/Nodes_Do</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>Easyui_Filter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/test/Panel.jsp</url-pattern>
+  </filter-mapping>
+</web-app>
