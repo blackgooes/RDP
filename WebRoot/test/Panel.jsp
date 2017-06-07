@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" import="Easyui_Dao.Dao"
+<%@ page language="java" import="java.util.*" import="com.rdp.dao.user.UserDao"
 	pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 <%
 	String a = String.valueOf(session.getAttribute("name"));
@@ -79,7 +79,7 @@
 </script>
 </head>
 <body class="easyui-layout">
-	<jsp:useBean id="user" class="Easyui_Dao.Dao" />
+	<jsp:useBean id="user" class="com.rdp.dao.user.UserDao" />
 	<jsp:setProperty name="user" property="*" />
 	<div region="north" title="欢迎 " split="true" style="height:100px;">
 		 <img src="../images/2.gif"> 

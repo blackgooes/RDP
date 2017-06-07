@@ -1,4 +1,4 @@
-package Easyui_Dao;
+package com.rdp.dao.table;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,71 +6,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Easyui_DB.DBConnection;
+import com.rdp.entity.Table;
+import com.rdp.util.DBConnection;
 
-public class Table {
-	String name;
-	int age;
-	String phone;
-	String email;
-	//int id;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	/*public void setId(int id){
-		this.id = id;
-	}
-	public int getId(int id){
-		return id;
-	}*/
-	public Table(String name, int age, String phone, String email) {
-		super();
-		this.name = name;
-		this.age = age;
-		this.phone = phone;
-		this.email = email;
-	}
-	public Table(){
-		
-	}
+public class TableDao {
+	
 	/*public Table(int id){
 		this.id = id;
 	}*/
 	
-	public boolean add() throws SQLException{
+	public boolean add(Table tb) throws SQLException{
 		Connection conn = null;
 		PreparedStatement ps = null;
 		Boolean flag = false;
 		ResultSet rs = null;
+
 		try{
 			conn = DBConnection.getConnection();
 			String sql = "insert into TAB (name,age,phone,email) values(?,?,?,?)";
 			ps = conn.prepareStatement(sql);
-			ps.setString(1,name);
-			ps.setInt(2,age);
-			ps.setString(3,phone);
-			ps.setString(4,email);   
+			ps.setString(1,tb.getName());
+			ps.setInt(2,tb.getAge());
+			ps.setString(3,tb.getPhone());
+			ps.setString(4,tb.getEmail());   
 			ps.executeUpdate();
 			flag=true;
 		}finally{

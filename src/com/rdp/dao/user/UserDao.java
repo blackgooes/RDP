@@ -1,69 +1,36 @@
-package Easyui_Dao;
+package com.rdp.dao.user;
 
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-import Easyui_DB.DBConnection;
+import com.rdp.entity.User;
+import com.rdp.util.DBConnection;
 /**
  * 
  * @author D_xiao
  *
  */
 
-public class Dao {
-	private String name;
-	private String password;
-//	private int age;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-//	public int getAge() {
-//		return age;
-//	}
-//	public void setAge(int age) {
-//		this.age = age;
-//	}
-	
-	public Dao(String name,String password){
-		this.name = name;
-		this.password = password;
-	}
-	public Dao(String name,String password,int age){
-		this.name = name;
-		this.password = password;
-//		this.age = age;
-	}
-	public Dao(){
-	}
+public class UserDao {
+
 	//1、用户登录使用，判断是否存在用户
-	public Dao login() throws SQLException{
+	public User login(User user) throws SQLException{
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Dao user = null;
+//		User user = null;
 		try{
 			conn=DBConnection.getConnection();
 			String sql = "select * from users where username = ? and password = ?";
 			ps = conn.prepareStatement(sql);
-			ps.setString(1,name);
-			ps.setString(2,password);
+			ps.setString(1,user.getName());
+			ps.setString(2,user.getPassword());
 			rs=ps.executeQuery();
-			user = new Dao();
+			user = new User();
 			while(rs.next()){
 				user.setName(rs.getString("name"));
 				user.setPassword(rs.getString("password"));
@@ -74,7 +41,7 @@ public class Dao {
 		}
 		return user;
 	}
-	
+/*
 	//1.1管理员登录使用，判断是否存在
 	public Dao loginGl() throws SQLException{
 		Connection conn = null;
@@ -100,8 +67,9 @@ public class Dao {
 		
 		return user;
 	}
+	*/
 	//2、用户注册：插入一条数据
-	public boolean register() throws SQLException{
+	public boolean register(User user) throws SQLException{
 		Connection conn = null;
 		PreparedStatement ps = null;
 		Boolean flag = false;
@@ -110,8 +78,8 @@ public class Dao {
 			conn = DBConnection.getConnection();
 			String sql = "insert into easyuiTest (name,password,age) values(?,?,?)";
 			ps = conn.prepareStatement(sql);
-			ps.setString(1,name);
-			ps.setString(2,password);
+			ps.setString(1,user.getName());
+			ps.setString(2,user.getPassword());
 //			ps.setInt(3,age);
 			ps.executeUpdate();
 			flag=true;
@@ -120,7 +88,7 @@ public class Dao {
 		}
 		return flag;
 	}
-	
+	/*
 	//3、用户个人信息修改：更新一条记录
 	public boolean update() throws SQLException{
 		Connection conn = null;
@@ -167,7 +135,7 @@ public class Dao {
 		
 		return all;
 	}
-	
+	*/
 	/*//5、管理员根据姓名name模糊查询
 	public ArrayList<User> listAllByName() throws SQLException{
 		Connection conn = null;

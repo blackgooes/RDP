@@ -1,4 +1,4 @@
-package Easyui_DB;
+package com.rdp.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

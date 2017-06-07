@@ -1,4 +1,4 @@
-package Easyui_Filter;
+package com.rdp.filter;
 
 import java.io.IOException;
 

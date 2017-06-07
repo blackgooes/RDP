@@ -5,43 +5,43 @@
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>Login_Do</servlet-name>
-    <servlet-class>Easyui_Control.Login_Do</servlet-class>
+    <servlet-class>com.rdp.servlet.user.Login_Do</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>Reg_Do</servlet-name>
-    <servlet-class>Easyui_Control.Reg_Do</servlet-class>
+    <servlet-class>com.rdp.servlet.user.Reg_Do</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>Add_Do</servlet-name>
-    <servlet-class>Easyui_Control.Add_Do</servlet-class>
+    <servlet-class>com.rdp.servlet.table.Add_Do</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>Table_Do</servlet-name>
-    <servlet-class>Easyui_Control.Table_Do</servlet-class>
+    <servlet-class>com.rdp.servlet.table.Table_Do</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>Update_Do</servlet-name>
-    <servlet-class>Easyui_Control.Update_Do</servlet-class>
+    <servlet-class>com.rdp.servlet.table.Update_Do</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>Del_Do</servlet-name>
-    <servlet-class>Easyui_Control.Del_Do</servlet-class>
+    <servlet-class>com.rdp.servlet.table.Del_Do</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>Nodes_Do</servlet-name>
-    <servlet-class>Easyui_Control.Nodes_Do</servlet-class>
+    <servlet-class>com.rdp.servlet.menu.Nodes_Do</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Login_Do</servlet-name>
@@ -76,7 +76,7 @@
   </welcome-file-list>
   <filter>
     <filter-name>LoginFilter</filter-name>
-    <filter-class>Easyui_Filter.LoginFilter</filter-class>
+    <filter-class>com.rdp.filter.LoginFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>
