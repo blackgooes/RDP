@@ -2,18 +2,12 @@ package com.rdp.entity;
 
 public class Tree {
 	private String id;
-	/**
-	 * 父节点
-	 */
+	// 父节点
 	private String pid;
 	private String text;
-	/**
-	 * URL
-	 */
+	// URL
 	private String attributes;
-	/**
-	 * 排序
-	 */
+	// 排序
 	private int order;
 
 public String getId() {

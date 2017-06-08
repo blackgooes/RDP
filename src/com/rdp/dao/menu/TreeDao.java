@@ -11,20 +11,28 @@ import com.rdp.entity.Tree;
 import com.rdp.util.DBConnection;
 
 public class TreeDao {
-
-	public List<Tree> SchoolTree(Tree tree) {
+	/**
+	 * 获取菜单信息
+	 * @param tree
+	 * @return
+	 */
+	public List<Tree> getMenuTree(Tree tree) {
 		List<Tree> list = null;
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null; 
-		String sql = ""; 
-		
+
+		StringBuffer sql = new StringBuffer(); 
 			try {
 				list = new ArrayList<Tree>();
 				conn = DBConnection.getConnection();
-				sql = "SELECT menusid,pid,text,attributes FROM menus where pid= \""+tree.getId()+" \"order by ordernums";
-				sql.toUpperCase();
-				ps = conn.prepareStatement(sql);
+				
+//				sql = "SELECT menusid,pid,text,attributes FROM menus where pid= \""+tree.getId()+" \"order by ordernums";
+				
+				// id是字符串 搜索的时候要+“” \" 转义为"
+				sql.append("SELECT menusid,pid,text,attributes FROM menus where pid= \""+tree.getId()+"\" order by ordernums");
+//				sql.toUpperCase();
+				ps = conn.prepareStatement(sql.toString());
 				rs = ps.executeQuery();
 				Tree s = null;
 				while (rs.next()) {

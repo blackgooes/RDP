@@ -25,12 +25,12 @@ public class Nodes_Do extends HttpServlet {
 		String id = request.getParameter("id");	
 		//System.out.println(theIdString);
 //		int id=Integer.parseInt(theIdString);
-		List<Tree> list=schoolTree(id);
+		List<Tree> list=getMenu(id);
 		//System.out.println(list.get(1));
         String sc="[";
         for(Tree tree:list){
         	sc+="{";
-        	List<Tree> l=schoolTree(tree.getId());
+        	List<Tree> l=getMenu(tree.getId());
         	if(l.size()!=0){
         	  sc+=String.format("\"id\": \"%s\", \"text\": \"%s\", \"state\": \"closed\"", tree.getId() ,tree.getText());
         	}else{
@@ -45,11 +45,11 @@ public class Nodes_Do extends HttpServlet {
 		response.getWriter().write(jobj.toString());
 		//System.out.println(jobj.toString());
 	}
-    public List<Tree> schoolTree(String id){
+    public List<Tree> getMenu(String id){
     	Tree t = new Tree();
     	t.setId(id);
     	TreeDao treeDao = new TreeDao();
-    	return treeDao.SchoolTree(t);
+    	return treeDao.getMenuTree(t);
     }
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

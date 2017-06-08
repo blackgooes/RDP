@@ -14,7 +14,12 @@ public class TableDao {
 	/*public Table(int id){
 		this.id = id;
 	}*/
-	
+	/**
+	 * ≤Â»Î ˝æ›
+	 * @param Table
+	 * @return Table
+	 * @throws SQLException
+	 */
 	public boolean add(Table tb) throws SQLException{
 		Connection conn = null;
 		PreparedStatement ps = null;
