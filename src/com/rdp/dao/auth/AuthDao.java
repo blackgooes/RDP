@@ -20,7 +20,7 @@ public class AuthDao {
 	 * @return role
 	 * @throws SQLException
 	 */
-	public Role getRole(User user) throws SQLException{
+	public Role getRoleByUser(User user){
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -50,14 +50,16 @@ public class AuthDao {
 			ps = conn.prepareStatement(sql.toString());
 			rs=ps.executeQuery();
 
-			while(rs.next()){
-				Role r = new Role();
-				r.setRoleId(rs.getString("roleid"));
-				r.setName(rs.getString("name"));
-//				user.setAge(rs.getInt("age"));
-				role = r;
-			}
-		}finally{
+				while(rs.next()){
+					Role r = new Role();
+					r.setRoleId(rs.getString("roleid"));
+					r.setName(rs.getString("name"));
+	//				user.setAge(rs.getInt("age"));
+					role = r;
+				} 
+			}catch (SQLException e) {
+			e.printStackTrace();
+			}finally{
 			DBConnection.close(rs, ps, conn);
 		}		
 		return role;		

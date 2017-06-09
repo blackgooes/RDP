@@ -33,8 +33,9 @@ public class UserDao {
 			user = new User();
 			while(rs.next()){
 				user.setName(rs.getString("name"));
-				user.setPassword(rs.getString("password"));
+				user.setUsername(rs.getString("username"));
 //				user.setAge(rs.getInt("age"));
+				user.setPassword(rs.getString("password"));
 			}
 		}finally{
 			DBConnection.close(rs, ps, conn);

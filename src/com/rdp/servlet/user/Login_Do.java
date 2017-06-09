@@ -32,23 +32,35 @@ public class Login_Do extends HttpServlet {
 		JSONObject json = new JSONObject();
 		String msg = ""; 
 		try {
-			json.put("msg",login());
+			User user = login();
+			json.put("msg",user.getName());
 			out.print(json.toString());
 			HttpSession session = request.getSession();
-			session.setAttribute("name", login());
-			
+			session.setAttribute("name", user.getName());
+			session.setAttribute("user", user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		
 	}
-	public String login() throws SQLException{
+//	public String login() throws SQLException{
+//		UserDao userDao = new UserDao();
+//		User u = new User(name,password);
+//		u = userDao.login(u);
+//		if(u.getName()!=null){
+//			return u.getName();
+//		}
+//		else
+//			return null;
+//	}
+	
+	public User login() throws SQLException{
 		UserDao userDao = new UserDao();
 		User u = new User(name,password);
 		u = userDao.login(u);
 		if(u.getName()!=null){
-			return u.getName();
+			return u;
 		}
 		else
 			return null;
