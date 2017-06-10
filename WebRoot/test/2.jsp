@@ -169,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table id="dg" title="" class="easyui-datagrid"
 		style="width:700px;height:250px" toolbar="#toolbar" pagination="true"
 		rownumbers="true" fitColumns="true" singleSelect="true" fit="true"
-		border="0" url="../servlet/Table_Do">
+		border="0" pageSize="5" pageList="[5,10,20,50]" url="../servlet/Table_Do">
 		<thead>
 			<tr>
 				<th field="name" width="50">姓名</th>
