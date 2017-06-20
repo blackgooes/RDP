@@ -24,9 +24,13 @@ public class Table_Do extends HttpServlet {
 		String rows = request.getParameter("rows");
 		String page = request.getParameter("page");
 		//System.out.println(rows+page);
+		// 获取当前页数
 		int p = Integer.parseInt(page);
+		// 当前页查出最大页数
 		int r = Integer.parseInt(rows);
+		// 从第几页开始
 		int begin = (p-1)*r;
+		// 控制当前页数最大数据
 		int count = r;
 		int num = begin;
 		TableDao t = new TableDao();

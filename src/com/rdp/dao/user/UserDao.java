@@ -32,6 +32,7 @@ public class UserDao {
 			rs=ps.executeQuery();
 			user = new User();
 			while(rs.next()){
+				user.setUserid(rs.getString("userid"));
 				user.setName(rs.getString("name"));
 				user.setUsername(rs.getString("username"));
 //				user.setAge(rs.getInt("age"));

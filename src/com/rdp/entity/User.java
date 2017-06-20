@@ -1,21 +1,37 @@
 package com.rdp.entity;
 
 public class User {
-	private String name;
+	private String userid;
 	private String username;
 	private String password;
+	private String name;
+
 //	private int age;
-	public String getName() {
-		return name;
+	public String getUserid() {
+		return userid;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 //	public int getAge() {
 //		return age;
@@ -28,17 +44,16 @@ public class User {
 		this.name = name;
 		this.password = password;
 	}
-	public User(String name,String password,int age){
+	
+	public User(String name,String username,String password){
 		this.name = name;
-		this.password = password;
-//		this.age = age;
+		this.username = username;
+		this.password = password;		
 	}
+
+//		this.age = age;
+	
 	public User(){
 	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
+
 }

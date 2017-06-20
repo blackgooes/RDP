@@ -1,0 +1,144 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>系统设置</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 系统设置 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+	<div class="row cl" style="line-height:40px;">
+		<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>登录验证码：</label>
+		<div class="formControls col-xs-8 col-sm-10 skin-minimal">
+			<div class="radio-box" style="padding-left:0px;">
+				<input name="vcode" type="radio" id="vcode-1" checked>
+				<label for="vcode-1">启用</label>
+			</div>
+			<div class="radio-box">
+				<input type="radio" id="vcode-2" name="vcode">
+				<label for="vcode-2">禁用</label>
+			</div>
+		</div>
+	</div>
+	<div class="row cl" style="line-height:40px;">
+		<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>记住用户名：</label>
+		<div class="formControls col-xs-8 col-sm-10 skin-minimal">
+			<div class="radio-box" style="padding-left:0px;">
+				<input name="remember" type="radio" id="remember-1" checked>
+				<label for="remember-1">启用</label>
+			</div>
+			<div class="radio-box">
+				<input type="radio" id="remember-2" name="remember">
+				<label for="remember-2">禁用</label>
+			</div>
+		</div>
+	</div>
+	<div class="row cl" style="line-height:40px;">
+		<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>登录失败限制：</label>
+		<div class="formControls col-xs-8 col-sm-10 skin-minimal">
+			<div class="radio-box" style="padding-left:0px;">
+				<input name="loginFail" type="radio" id="loginFail-1" checked>
+				<label for="loginFaill-1">启用</label>
+			</div>
+			<div class="radio-box">
+				<input type="radio" id="loginFail-2" name="loginFail">
+				<label for="loginFail-2">禁用</label>
+			</div>
+            <div class="radio-box">
+            	登录失败<input type="text" class="input-text ipt_c" value="6" placeholder="" id="failCount" name="failCount" style="width:100px;">次后禁用<input type="text" class="input-text ipt_c" value="10" placeholder="" id="waitMinute" name="waitMinute" style="width:100px;">分钟
+            </div>
+		</div>
+	</div>
+	<div class="row cl" style="line-height:40px;">
+		<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>密码强度：</label>
+		<div class="formControls col-xs-8 col-sm-10">
+			密码长度为<input type="text" class="input-text ipt_c" value="6" placeholder="" id="passLength1" name="passLength1" style="width:100px;"> - <input type="text" class="input-text ipt_c" value="10" placeholder="" id="passLength2" name="passLength2" style="width:100px;">位
+            <div class="check-box"><label><input type="checkbox" id="passType" name="passType" value="">密码必须同时包含字母和数字</label></div> 
+		</div>
+	</div>
+	<div class="row cl" style="line-height:40px;">
+		<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>密码过期：</label>
+		<div class="formControls col-xs-8 col-sm-10">
+			密码修改后<input type="text" class="input-text ipt_c" value="0" placeholder="" id="passValidity" name="passValidity" style="width:100px;">天提示修改密码（设为0时不提示密码过期）
+		</div>
+	</div>
+	<div class="row cl" style="line-height:60px;">
+		<label class="form-label col-xs-4 col-sm-2"></label>
+		<div class="formControls col-xs-8 col-sm-10">
+			<input class="btn btn-primary radius" type="submit" value="&nbsp;保存系统设置&nbsp;">
+		</div>
+	</div>
+	</form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+/*管理员-角色-添加*/
+function admin_role_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*管理员-角色-编辑*/
+function admin_role_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*管理员-角色-删除*/
+function admin_role_del(obj,id){
+	layer.confirm('角色删除须谨慎，确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: '',
+			dataType: 'json',
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+/*管理员-角色-删除选中*/
+function datadel(){
+	layer.confirm('角色删除须谨慎，确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: '',
+			dataType: 'json',
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+</script>
+</body>
+</html>

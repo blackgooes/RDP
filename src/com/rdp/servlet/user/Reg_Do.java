@@ -21,7 +21,7 @@ import net.sf.json.JSONObject;
 public class Reg_Do extends HttpServlet {
 	String name;
 	String password;
-	int age;
+	String username;
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doPost(request, response);
@@ -32,7 +32,7 @@ public class Reg_Do extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		name= new String(request.getParameter("name").getBytes("ISO-8859-1"),"utf-8") ; 
 	    password = request.getParameter("password");
-	    age = Integer.parseInt(request.getParameter("age"));
+//	    age = Integer.parseInt(request.getParameter("age"));
 		PrintWriter out = response.getWriter();
 		JSONObject json = new JSONObject();
 		String msg = "";
@@ -45,7 +45,7 @@ public class Reg_Do extends HttpServlet {
 		}
 	}
 	public String reg() throws SQLException{
-		User u= new User(name,password,age);
+		User u= new User(name,username,password);
 		UserDao userDao = new UserDao();
 		boolean b = userDao.register(u);
 		String s = String.valueOf(b);

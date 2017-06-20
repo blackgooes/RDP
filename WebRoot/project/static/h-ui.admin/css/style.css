@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* 你自己的样式 */
+.div_l{ text-align:left;}
+.div_c,.ipt_c{ text-align:center;}
+.div_r{ text-align:right;}
+.mar_t10{ margin-top:10px;}
+.mar_t20{ margin-top:20px;}
+.mar_t30{ margin-top:30px;}
+.mar_t40{ margin-top:40px;}
+.mar_l10{ margin-left:10px;}
+.mar_l20{ margin-left:20px;}
+.mar_l30{ margin-left:30px;}
+.div_h30{height:30px; line-height:30px;}
+.div_h40{height:40px; line-height:40px;}
+

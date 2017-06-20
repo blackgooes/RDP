@@ -4,13 +4,14 @@ public class Tree {
 	private String id;
 	// 父节点
 	private String pid;
+	// 菜单名称
 	private String text;
 	// URL
 	private String attributes;
 	// 排序
 	private int order;
 
-public String getId() {
+	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
