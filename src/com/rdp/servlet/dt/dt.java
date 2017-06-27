@@ -3,6 +3,7 @@ package com.rdp.servlet.dt;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -54,10 +55,28 @@ public class dt extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if(method.equals("add")){
-			Add(request,response);
+			try {
+				addList(request,response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else if(method.equals("del")){
-			Del(request,response);
+			try {
+				delList(request,response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(method.equals("edit")){
+			try {
+				editList(request,response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 	}
 
 	/**
@@ -67,7 +86,14 @@ public class dt extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+	/**
+	 * 初始化表格
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	private void getList(HttpServletRequest request,HttpServletResponse response) 
 		    throws ServletException, IOException, SQLException {
 		response.setCharacterEncoding("utf-8");
@@ -200,12 +226,118 @@ public class dt extends HttpServlet {
 	    out.close();
 		
 	}
-	private void Add(HttpServletRequest request,HttpServletResponse response) 
-		    throws ServletException, IOException {
+	/**
+	 * 增加
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException 
+	 */
+	private void addList(HttpServletRequest request,HttpServletResponse response) 
+		    throws ServletException, IOException, SQLException {
+		 
+	    String name = request.getParameter("name");
+	    String position = request.getParameter("position");
+	    String salary = request.getParameter("salary");
+	    String start_date = request.getParameter("start_date");
+	    String office = request.getParameter("office");
+	    String extn = request.getParameter("extn");
+	 
+	    Connection conn = DtDBConnection.getConnection();
+	    PreparedStatement stmt = null;
+	    PrintWriter out = response.getWriter();
+        response.setContentType("application/json; charset=utf-8");  
+        response.setHeader("pragma", "no-cache");  
+        response.setHeader("cache-control", "no-cache"); 
+	    if (conn != null) {
+	        String sql = "insert into user values (?,?,?,?,?,?)";
+	        stmt = conn.prepareStatement(sql);
+	        stmt.setString(1,name);
+	        stmt.setString(2,position);
+	        stmt.setString(3,salary);
+	        stmt.setString(4,start_date);
+	        stmt.setString(5,office);
+	        stmt.setString(6,extn);
+	 
+	        int flag = stmt.executeUpdate();
+	        out.print(flag);
+	    }
+	    stmt.close();
+	    conn.close();
 	}
 	
-	private void Del(HttpServletRequest request,HttpServletResponse response) 
-		    throws ServletException, IOException {
+	/**
+	 * 删除
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException 
+	 */
+	private void delList(HttpServletRequest request,HttpServletResponse response) 
+		    throws ServletException, IOException, SQLException {
+		
+	    String name = request.getParameter("name");
+	    Connection conn = DtDBConnection.getConnection();
+	    PreparedStatement stmt = null;
+	    PrintWriter out = response.getWriter();
+        response.setContentType("application/json; charset=utf-8");  
+        response.setHeader("pragma", "no-cache");  
+        response.setHeader("cache-control", "no-cache"); 
+	    if (conn != null) {
+	        String sql = "delete from user where name = ?";
+	        stmt = conn.prepareStatement(sql);
+	        stmt.setString(1,name);
+	        int flag = stmt.executeUpdate();
+	        out.print(flag);
+	    }
+	    stmt.close();
+	    conn.close();
+	}
+	
+	/**
+	 * 修改
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	private void editList(HttpServletRequest request,HttpServletResponse response) 
+		    throws ServletException, IOException, SQLException {
+		
+		response.setCharacterEncoding("utf-8");
+	    String name = request.getParameter("name");
+	    String position = request.getParameter("position");
+	    String salary = request.getParameter("salary");
+	    String start_date = request.getParameter("start_date");
+	    String office = request.getParameter("office");
+	    String extn = request.getParameter("extn");
+
+	    Connection conn = DtDBConnection.getConnection();
+	    PreparedStatement stmt = null;
+	    PrintWriter out = response.getWriter();
+        response.setContentType("application/json; charset=utf-8");  
+        response.setHeader("pragma", "no-cache");  
+        response.setHeader("cache-control", "no-cache"); 
+        
+	    if (conn != null) {
+	        String sql = "update user set position = ?,salary = ?,start_date = ?,office = ?,extn = ? where name = ?";
+	        stmt = conn.prepareStatement(sql);
+	        stmt.setString(6, name);
+	        stmt.setString(1, position);
+	        stmt.setString(2, salary);
+	        stmt.setString(3, start_date);
+	        stmt.setString(4, office);
+	        stmt.setString(5, extn);
+
+	        int flag = stmt.executeUpdate();
+	        out.print(flag);
+	    }
+	    stmt.close();
+	    conn.close();
+		
 	}
 
 	
