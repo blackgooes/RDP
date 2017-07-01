@@ -6,6 +6,18 @@ public class Role {
 	private String roleId;
 	// ½ÇÉ«Ãû³Æ
 	private String name;
+	// ÅÅÐò
+	private int lv;
+	// ±¸×¢
+	private String remark;
+	
+	public Role(String roleId, String name, int lv ,String remark){
+		this.roleId = roleId;
+		this.name = name;
+		this.lv = lv;		
+		this.remark = remark;
+	}
+	public Role(){}
 	
 	public String getRoleId() {
 		return roleId;
@@ -19,5 +31,18 @@ public class Role {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public int getLv() {
+		return lv;
+	}
+	public void setLv(int lv) {
+		this.lv = lv;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
 	
 }

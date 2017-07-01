@@ -24,6 +24,20 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
+<script type="text/javascript">
+
+function GetQueryString(name)
+{
+	//decodeURI
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  decodeURI(r[2]); return null;
+
+}
+
+
+</script>
+
 <title>角色</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
@@ -40,7 +54,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">备注：</label>
 			<div class="formControls col-xs-8 col-sm-10">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="">
+				<input type="text" class="input-text" value="" placeholder="" id="Remark" name="">
 			</div>
 		</div>
 		<div class="row cl">
@@ -72,7 +86,14 @@
 		</div>
 	</form>
 </article>
-
+<script type="text/javascript">
+var myurl=GetQueryString("ID");
+if(myurl !=null 	&& myurl.toString().length>1)
+{
+document.getElementById("roleName").value = GetQueryString("Name");
+document.getElementById("Remark").value = GetQueryString("Remark");
+}
+</script>
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
@@ -121,6 +142,7 @@ $(function(){
 		}
 	});
 });
+
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

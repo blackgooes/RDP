@@ -41,55 +41,25 @@
 <div style="text-align: center">
 <table id="searchTable">
     <tr>
-        <th w_index="XH" width="5%;">XH</th>
-        <th w_index="ID" width="5%;">ID</th>
-        <th w_index="CHAR" w_align="left" width="15%;">CHAR</th>
-        <th w_index="TEXT" w_align="left" width="30%;">TEXT</th>
-        <th w_index="DATE" width="15%;">DATE</th>
-        <th w_index="TIME" width="15%;">TIME</th>
-        <th w_index="NUM" width="5%;">NUM</th>
+    	<th w_index="roleId" width="5%;">ID</th>
+        <th w_index="name" width="5%;">角色</th>
+        <th w_index="lv" width="5%;">排序</th>
+        <th w_index="remark" w_align="left" width="15%;">备注</th>
         <th w_render="operate" width="10%;">Operate</th>
     </tr>
 </table>
 </div>
 <script type="text/javascript">
-    var localData = [
-    {
-        "ID": 202,
-        "CHAR": "1",
-        "TEXT": "TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_1",
-        "NUM": 11.2,
-        "XH": 1
-    },
-    {
-        "ID": 201,
-        "CHAR": "111",
-        "TEXT": "TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_2",
-        "XH": 2
-    },
-    {
-        "ID": 200,
-        "CHAR": "200",
-        "TEXT": "TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_TEXT_3",
-        "XH": 3
-    },
-    {
-        "ID": 199,
-        "CHAR": "199",
-        "XH": 4
-    },
-    {
-        "ID": 32,
-        "CHAR": "34",
-        "NUM": 12.1,
-        "XH": 5
-    }];
+   // var localData = [{"roleId":"0ED7F83E93F9417A8464E5A99D9145DC","name":"超级管理员","lv":1},{"roleId":"249F153EFF364D4087059B59118EF9D6","name":"管理员","lv":2},{"roleId":"395EC514E6A44D2DAD5335D6A5039BCA","name":"乡镇单位","lv":3},{"roleId":"C9D854FAFBD34BA5B46B2C486DF43C08","name":"行业主管部门","lv":4},{"roleId":"DCF6973A376948DC8AB91B03133733A4","name":"县重点办","lv":5}];
     var gridObj;
     $(function () {
         gridObj = $.fn.bsgrid.init('searchTable', {
-            localData: localData,
+        	url: '/RDP/servlet/user/UserManagement2?method=list',
+            // localData: localData,
             // autoLoad: false,
-            pageSize: 3
+              pageSizeSelect: true,
+              pageSize: 3,
+              displayBlankRows: false
         });
     });
 
