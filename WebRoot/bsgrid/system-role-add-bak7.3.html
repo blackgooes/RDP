@@ -25,48 +25,30 @@
 <!--/meta 作为公共模版分离出去-->
 
 <script type="text/javascript">
-	$(function(){
-		$("input[name='roleName']").change(function(){
-			var val = $(this).val();
-			val = $.trim(val);
-			
-			if(val != ""){
-				var url = "/RDP/servlet/auth/ValiateRoleNameServlet";
-				var args = {"roleName":val,"time":new Date()};
-				
-				$.post(url,args,function(data){
-					$("#message").html(data);
-				});
-			}
-		});
-	})
 
-	function GetQueryString(name)
-	{
-		//decodeURI
-	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-	     var r = window.location.search.substr(1).match(reg);
-	     if(r!=null)return  decodeURI(r[2]); return null;
-	
-	}
-	// 判断有木有ID传过来，有ID则传参触发update，无ID就是add
-	function editOrAdd(){
-	    var f = document.getElementsByTagName("form")[0];
-	    if(f!=null &&  GetQueryString("ID") != null)
-	   	{
-	   		return f.action=f.action+"id="+GetQueryString("ID");
-	   	}
-	    else
-	    {
-	   		return f.action;
-	    }
-	    //alert(f.action);
-	}
-	
+function GetQueryString(name)
+{
+	//decodeURI
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  decodeURI(r[2]); return null;
 
+}
 
+function editOrAdd(){
+    var f = document.getElementsByTagName("form")[0];
+    if(f!=null &&  GetQueryString("ID") != null)
+   	{
+   		return f.action=f.action+"id="+GetQueryString("ID");
+   	}
+    else
+    {
+   		return f.action;
+    }
+    //alert(f.action);
+}
 </script>
-
+</script>
 
 <title>角色</title>
 <meta name="keywords" content="">
@@ -76,8 +58,6 @@
 <article class="page-container">
 	<form action="/RDP/servlet/auth/RoleManagement?" method="post" class="form form-horizontal" id="form-admin-role-add">
 		<div class="row cl">
-			<div id="message"></div>
-			<br><br>
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>角色名称：</label>
 			<div class="formControls col-xs-8 col-sm-10">
 				<input type="text" class="input-text" value="" placeholder="" id="roleName" name="roleName">
@@ -86,7 +66,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">备注：</label>
 			<div class="formControls col-xs-8 col-sm-10">
-				<input type="text" class="input-text" value="" placeholder="" id="remark" name="remark">
+				<input type="text" class="input-text" value="" placeholder="" id="remark" name="">
 			</div>
 		</div>
 		<div class="row cl">
@@ -123,7 +103,7 @@ var myurl=GetQueryString("ID");
 if(myurl !=null 	&& myurl.toString().length>1)
 {
 	document.getElementById("roleName").value = GetQueryString("Name");
-	document.getElementById("remark").value = GetQueryString("Remark");
+	document.getElementById("Remark").value = GetQueryString("Remark");
 }
 </script>
 <!--_footer 作为公共模版分离出去-->
@@ -169,9 +149,6 @@ $(function(){
 		success:"valid",
 		submitHandler:function(form){
 			$(form).ajaxSubmit();
-			// 回调父页面
-			parent.location.reload();
-			// 先获取窗口索引，才能关闭窗口
 			var index = parent.layer.getFrameIndex(window.name);
 			parent.layer.close(index);
 		}

@@ -10,12 +10,15 @@ public class Role {
 	private int lv;
 	// ±¸×¢
 	private String remark;
+	// È¨ÏÞ
+	private String auth;
 	
-	public Role(String roleId, String name, int lv ,String remark){
+	public Role(String roleId, String name, int lv ,String remark, String auth){
 		this.roleId = roleId;
 		this.name = name;
 		this.lv = lv;		
 		this.remark = remark;
+		this.auth = auth;
 	}
 	public Role(){}
 	
@@ -42,6 +45,12 @@ public class Role {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getAuth() {
+		return auth;
+	}
+	public void setAuth(String auth) {
+		this.auth = auth;
 	}
 	
 	

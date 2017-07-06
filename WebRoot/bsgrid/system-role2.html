@@ -41,6 +41,8 @@
 <div style="text-align: center">
 <table id="searchTable">
     <tr>
+    	<th w_num="line" width="2%;"></th>
+   	    <th w_check="true" w_index="roleId" width="2%;"></th>
     	<th w_index="roleId" width="5%;">ID</th>
         <th w_index="name" width="5%;">角色</th>
         <th w_index="lv" width="5%;">排序</th>
@@ -54,7 +56,7 @@
     var gridObj;
     $(function () {
         gridObj = $.fn.bsgrid.init('searchTable', {
-        	url: '/RDP/servlet/user/UserManagement2?method=list',
+        	url: '/RDP/servlet/auth/RoleManagement?method=list',
             // localData: localData,
             // autoLoad: false,
               pageSizeSelect: true,
@@ -106,15 +108,20 @@ function system_role_del(obj,id){
 	});
 }
 /*角色删除选中*/
+
+
 function datadel(){
+	var idstr = gridObj.getCheckedValues('roleId');
 	layer.confirm('角色删除须谨慎，确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '',
-			dataType: 'json',
+			url: '/RDP/servlet/auth/RoleManagement?method=del',
+			data:{delList:idstr},
+			dataType: 'text',
 			success: function(data){
-				$(obj).parents("tr").remove();
+				//$(obj).parents("tr").remove();
 				layer.msg('已删除!',{icon:1,time:1000});
+				window.location.reload();
 			},
 			error:function(data) {
 				console.log(data.msg);

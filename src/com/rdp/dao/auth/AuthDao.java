@@ -98,6 +98,43 @@ public class AuthDao {
 	}
 	
 	/**
+	 * 增加角色
+	 * @param user
+	 * @return
+	 */
+	public boolean addRole(Role role){
+		Connection conn = null;
+		PreparedStatement ps = null,psCount = null;
+		ResultSet rsCount = null;
+		int count = 0;
+
+		try{
+			conn=DBConnection.getConnection();
+			String countsql = "select count(*) as num from roles where name='" + role.getName() +"'";
+			psCount = conn.prepareStatement(countsql);
+			System.out.println(psCount);
+			rsCount=psCount.executeQuery();		
+		    if(rsCount.next()){
+				count=rsCount.getInt("num");
+			}
+		    
+		    if(count==0){
+			    String sql = " insert into roles(roleid,name,remark,auth) values(?,?,?,?) ";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, role.getRoleId());
+				ps.setString(2, role.getName());
+				ps.setString(3, role.getRemark());
+				ps.setString(4, role.getAuth());
+				ps.executeUpdate();
+		    }
+			}catch (SQLException e) {
+			e.printStackTrace();
+			}finally{
+			DBConnection.close(rsCount, ps, conn);
+		}		
+		return true;		
+	}
+	/**
 	 * 获取所有角色
 	 * @param user
 	 * @return
@@ -127,6 +164,7 @@ public class AuthDao {
 				r.setName(rs2.getString("name"));
 				r.setLv(rs2.getInt("lv"));
 				r.setRemark(rs2.getString("remark"));
+				r.setAuth(rs2.getString("auth"));
 				rolelist.add(r);
 			}
 		}catch (SQLException e) {
@@ -136,5 +174,93 @@ public class AuthDao {
 			DBConnection.close(rs2, ps2, conn);
 		}
 		return new Pager(pageSize, curPage, count, rolelist);
+	}
+	
+	/**
+	 * 修改角色信息
+	 * @param id
+	 */
+	public boolean updateRole(Role role){
+		Connection conn = null;
+		PreparedStatement ps = null,psCount = null;
+		ResultSet rsCount = null;
+		int count = 0;
+
+		try{
+			conn=DBConnection.getConnection();
+//			String countsql = "select count(*) as num from roles where name='" + role.getName() +"'";
+//			psCount = conn.prepareStatement(countsql);
+//			System.out.println(psCount);
+//			rsCount=psCount.executeQuery();		
+//		    if(rsCount.next()){
+//				count=rsCount.getInt("num");
+//			}
+		    
+//		    if(count==0){
+			    String sql = "update roles set name = ?, remark = ?, auth = ? where roleid='" + role.getRoleId() +"'";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, role.getName());
+				ps.setString(2, role.getRemark());
+				ps.setString(3, role.getAuth());
+				ps.executeUpdate();
+//		    }
+			}catch (SQLException e) {
+			e.printStackTrace();
+			}finally{
+			DBConnection.close(rsCount, ps, conn);
+		}		
+		return true;		
+	}
+	
+	public boolean delByRoleId(String[] roleId){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Role role = null;
+		StringBuffer sql = new StringBuffer();
+		int cols=0;
+		try{
+			conn=DBConnection.getConnection();
+			sql.append("DELETE FROM roles WHERE ");
+			for(int i=0;i<roleId.length;i++){
+				sql.append("roleid = '"+roleId[i]+ "' or ");
+				
+			}
+			sql.delete(sql.length() - 4, sql.length());
+			ps = conn.prepareStatement(sql.toString());			
+			cols = ps.executeUpdate();
+			}catch (SQLException e) {
+			e.printStackTrace();
+			}finally{
+			DBConnection.close(rs, ps, conn);
+		}
+		if(cols > 0){
+			return true;
+		}
+		return false;		
+	}
+	
+	// 检验
+	public boolean validateRole(String name){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Role role = null;
+
+		int cols=0;
+		try{	
+			conn=DBConnection.getConnection();
+			String sql = "select count(1) from roles where name = " + name;
+			ps = conn.prepareStatement(sql.toString());
+			cols = ps.executeUpdate();
+			}catch (SQLException e) {
+			e.printStackTrace();
+			}finally{
+			DBConnection.close(rs, ps, conn);
+		}
+		if(cols > 0){
+			return true;
+		}
+		return false;		
 	}
 }
