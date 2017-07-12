@@ -63,7 +63,7 @@ public class UserManagement extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		UserManagementDao uDao = new UserManagementDao();
-		List<User> userlist = new ArrayList<User>();
+		List<User> userlist = new ArrayList<User>();	
 		userlist = uDao.getList();
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.toJSONString(userlist);

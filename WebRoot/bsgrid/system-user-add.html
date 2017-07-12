@@ -20,6 +20,35 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <title>用户</title>
+
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function getRoleName() {
+	    
+	    $.ajax({
+	        type: "post",
+	        url: "AppTypeShow.action", //获取json数据
+	        dataType: "json",
+	        success: function(data) {  
+	            var d = eval("(" + data + ")");  
+	            for(var i = 0; i < d.length; i++) {
+	            	var id = d[i].id;
+	                var name = d[i].name;
+	                var opt = "<option value='" + id + "'>" + name + "</option>";
+	                $("#roleName").append(opt);
+	            }
+	        },
+	        error: function() {
+	            alert("系统异常，请稍后再试！")
+	        }
+	    });
+	}  
+
+
+</script>
+
+
+
 </head>
 <body>
 <article class="page-container">
@@ -70,7 +99,7 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-2">用户角色：</label>
 		<div class="formControls col-xs-8 col-sm-10"> <span class="select-box">
-			<select class="select" name="userRole" size="1">
+			<select class="select" name="roleName" size="1">
 				<option value="0">超级管理员</option>
                 <option value="1">市发改委</option>
                 <option value="2">县发改委</option>
@@ -105,7 +134,7 @@
 </article>
 
 <!--_footer 作为公共模版分离出去--> 
-<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+
 <script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script> 
 <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
