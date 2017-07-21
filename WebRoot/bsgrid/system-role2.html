@@ -67,9 +67,9 @@
 
     function operate(record, rowIndex, colIndex, options) {
 //    	return '<a title="编辑" href="javascript:;" onclick="system_role_edit(\'编辑角色\',\'system-role-add.html\',\'1\')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' 
-    	return '<a title="编辑" href="javascript:;" onclick="system_role_edit(\'编辑角色\',\'system-role-add.html?ID=' + gridObj.getRecordIndexValue(record, 'roleId') + '&Name='+ gridObj.getRecordIndexValue(record, 'name') +'&Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\',\'1\')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' 
-    	+ '<a title="删除" href="javascript:;" onclick="system_role_del(this,\'1\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>'
-		+ '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'roleId') + 'Name='+ gridObj.getRecordIndexValue(record, 'name') +'Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\');">Operate</a>';
+    	return '<a title="编辑" href="javascript:;" onclick="system_role_edit(\'编辑角色\',\'system-role-add.html?ID=' + gridObj.getRecordIndexValue(record, 'roleId') + '&Name='+ gridObj.getRecordIndexValue(record, 'name') +'&Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\',\'1\')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' ;
+    	//+ '<a title="删除" href="javascript:;" onclick="system_role_del(this,\'1\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>'
+		//+ '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'roleId') + 'Name='+ gridObj.getRecordIndexValue(record, 'name') +'Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\');">Operate</a>';
     	//return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
     }
 </script>
@@ -120,8 +120,14 @@ function datadel(){
 			dataType: 'text',
 			success: function(data){
 				//$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
-				window.location.reload();
+				if(data==1){
+					layer.msg('已删除!',{icon:1,time:1000});
+					gridObj.refreshPage();
+				}
+				else if(data==0){
+					layer.msg('删除失败!存在用户使用该角色！',{icon:1,time:2000});
+				}
+
 			},
 			error:function(data) {
 				console.log(data.msg);

@@ -29,17 +29,20 @@
 <script type="text/javascript">
 // 获取角色下拉框
 	function getRoleName() {
-	    
+	
 	    $.ajax({
 	        type: "post",
-	        url: '/RDP/servlet/auth/UserManagement?method=chgFlag', //获取json数据
+	        url: '/RDP/servlet/auth/UserManagement?method=getrolename', //获取json数据
 	        dataType: "json",
 	        success: function(data) {
-	            var d = eval("(" + data + ")");  
-	            for(var i = 0; i < d.length; i++) {
-	            	var id = d[i].id;
-	                var name = d[i].name;
-	                var opt = "<option value='" + id + "'>" + name + "</option>";
+
+	        	//var d = eval("(" + data + ")"); 返回值data已经是对象，不需要转换 
+	        	
+	            for(var i = 0; i < data.length; i++) {
+	            	var id = data[i].roleId;
+	                var name = data[i].name;
+	                var opt = "<option value='" + name + "'>" + name + "</option>";
+	                // 选定ID
 	                $("#roleName").append(opt);
 	            }
 	        },
@@ -48,21 +51,27 @@
 	        }
 	    });
 	}  
-
+    $(document).ready(function() {
+    	if($('#roleName option:selected').val() == -1){
+    		getRoleName();
+    	}
+    });
 </script>
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
+<form id="searchParams">
 	<div class="text-l"> 用户角色：
     	<span class="select-box inline">
-        <select class="select" name="roleName" size="1">
+        <select class="select" name="roleName" id="roleName" size="1">
 			<option value="-1">---请选择---</option>  
         </select>
         </span>
-		<input type="text" class="input-text" style="width:250px" placeholder="用户名/姓名" id="" name="">
-		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		<input type="text" name="username" class="input-text" style="width:250px" placeholder="用户名/姓名" id="">
+		<input type="button" class="btn btn-success" value="搜用户" onclick="doSearch(1);"/>
 	</div>
+</form>
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
     	<span class="l">
             <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
@@ -73,14 +82,17 @@
 </div>
 
 <div style="text-align: center">
+
+<div id="searchParams_view" style="width: 96%; border: solid 1px #ccc; padding: 10px;">
+</div>
 <table id="searchTable">
     <tr>
     	<th w_num="line" width="2%;"></th>
    	    <th w_check="true" w_index="roleId" width="2%;"></th>
    <!-- <th w_index="userid" width="5%;">ID</th>  -->
     	<th w_index="username" width="5%;">用户名</th>
-        <th w_index="rolename" width="5%;">用户名称</th>
-        <th w_index="name" width="5%;">角色名称</th>
+        <th w_index="name" width="5%;">用户名称</th>
+        <th w_index="rolename" width="5%;">角色名称</th>
         <th w_index="tel" width="6%;">电话</th>
         <th w_index="createTime" width="10%;">创建时间</th>
 		<th w_index="gendername" width="2%;">性别</th>
@@ -100,9 +112,29 @@
             // autoLoad: false,
               pageSizeSelect: true,
               pageSize: 5,
-              displayBlankRows: false
-        });	
-    });
+              displayBlankRows: false,
+              beforeSend: function (options, XMLHttpRequest) {
+                  $('#searchParams_view').html('<b>查询请求参数: </b>' + gridObj.getPageCondition(gridObj.getCurPage()));
+              }
+          });
+          doSearch(1);
+      });
+
+      function doSearch(style) {
+          // 提供以下三种带参数方式，可任选其中任意一种
+          var searchParames = '';
+          if (style == 1) {
+              searchParames = $('#searchParams').serializeArray();      // jQuery推荐方式
+          } else if (style == 2) {
+              searchParames = 'username=' + $('#searchParams input[name=username]').val();
+          } else if (style == 3) {
+              searchParames = {'username': $('#searchParams input[name=username]').val()}
+          }
+          gridObj.search(searchParames);
+      }
+//              displayBlankRows: false
+//        });	
+//    });
 
     function operate(record, rowIndex, colIndex, options) {
 //    	return '<a title="编辑" href="javascript:;" onclick="system_role_edit(\'编辑角色\',\'system-role-add.html\',\'1\')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' 
@@ -110,17 +142,17 @@
 		if(gridObj.getRecordIndexValue(record, 'stateFlag')== 0)
     	{
 	    	return '<span class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,\'' + id + '\')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>'
-			+ '<a title="编辑" href="javascript:;" onclick="system_user_edit(\'编辑用户\',\'system-user-add.html\',\'1\',\'800\',\'500\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>'
-	    	+ '<a title="删除" href="javascript:;" onclick="system_role_del(this,\'1\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>'
-			+ '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'roleId') + 'Name='+ gridObj.getRecordIndexValue(record, 'name') +'Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\');">Operate</a></span>';
+			+ '<a title="编辑" href="javascript:;" onclick="system_user_edit(\'编辑用户\',\'system-user-add.html?ID=' + id + '\',\'1\',\'800\',\'500\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>';
+	    	//+ '<a title="删除" href="javascript:;" onclick="system_role_del(this,\'1\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>'
+			//+ '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'roleId') + 'Name='+ gridObj.getRecordIndexValue(record, 'name') +'Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\');">Operate</a></span>';
 	    	//return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
     	}
     	else
     	{
 	    	return '<span class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,\'' + id + '\')" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>'
-			+ '<a title="编辑" href="javascript:;" onclick="system_user_edit(\'编辑用户\',\'system-user-add.html\',\'1\',\'800\',\'500\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>'
-	    	+ '<a title="删除" href="javascript:;" onclick="system_role_del(this,\'1\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>'
-			+ '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'roleId') + 'Name='+ gridObj.getRecordIndexValue(record, 'name') +'Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\');">Operate</a></span>';
+			+ '<a title="编辑" href="javascript:;" onclick="system_user_edit(\'编辑用户\',\'system-user-add.html?ID=' + id + '\',\'1\',\'800\',\'500\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>';
+	    	//+ '<a title="删除" href="javascript:;" onclick="system_role_del(this,\'1\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>'
+			//+ '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'roleId') + 'Name='+ gridObj.getRecordIndexValue(record, 'name') +'Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\');">Operate</a></span>';
     	}
     }
     function status(record, rowIndex, colIndex, options) {
@@ -184,7 +216,6 @@ function system_user_edit(title,url,id,w,h){
 }
 /*管理员-停用*/
 function admin_stop(obj,id){
-	alert(id);alert(obj);
 	layer.confirm('确认要停用吗？',function(index){
 		//此处请求后台程序，下方是成功后的前台处理……
 		$.ajax({
@@ -200,7 +231,8 @@ function admin_stop(obj,id){
 				// 移除点击的这个玩意
 				$(obj).remove();
 				layer.msg('已停用!',{icon: 5,time:1000});
-				window.location.reload();
+				gridObj.refreshPage();
+				
 			},
 			error:function(data) {
 				console.log(data.msg);
@@ -211,7 +243,6 @@ function admin_stop(obj,id){
 
 /*管理员-启用*/
 function admin_start(obj,id){
-	alert(id);alert(obj);
 	layer.confirm('确认要启用吗？',function(index){
 		//此处请求后台程序，下方是成功后的前台处理……
 		$.ajax({
@@ -225,7 +256,7 @@ function admin_start(obj,id){
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
 				$(obj).remove();
 				layer.msg('已启用!', {icon: 6,time:1000});
-				window.location.reload();
+				gridObj.refreshPage();
 			},
 			error:function(data) {
 				console.log(data.msg);
@@ -245,9 +276,10 @@ function datadel(){
 			success: function(data){
 				//$(obj).parents("tr").remove();
 				layer.msg('已删除!',{icon:1,time:1000});
-				window.location.reload();
+				gridObj.refreshPage();
 			},
 			error:function(data) {
+				layer.msg('删除失败！请重试!',{icon:1,time:2000});
 				console.log(data.msg);
 			},
 		});

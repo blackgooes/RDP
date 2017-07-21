@@ -159,11 +159,17 @@ public class RoleManagement extends HttpServlet {
 		String a = request.getParameter("ID");
 		String[] delList = request.getParameterValues("delList[]");
 		AuthDao authDao=new AuthDao();
+		PrintWriter out = response.getWriter();
 		if(authDao.delByRoleId(delList) == true){
-
+			// 删除成功
+			out.print(1);
 		}else{
-			// 定位至错误页面
-		}		
+			// 显示“删除失败，存在用户使用该角色，请删除有此权限的用户后重试”
+			out.print(0);
+		}
+		
+		
+		out.close();
 	}
 
 	private void update(HttpServletRequest request,HttpServletResponse response) 

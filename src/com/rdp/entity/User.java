@@ -8,7 +8,7 @@ public class User {
 	private String password;
 	private String name;
 	private int stateFlag;
-	private Date createTime;
+	private String createTime;
 	private int gender;
 	private String gendername;
 
@@ -51,10 +51,10 @@ public class User {
 	public void setStateFlag(int stateFlag) {
 		this.stateFlag = stateFlag;
 	}
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 	public int getGender() {
@@ -90,7 +90,7 @@ public class User {
 		this.rolename = rolename;
 	}
 	
-	public User(String userid, String username, String password, String name, int stateFlag, Date createTime,
+	public User(String userid, String username, String password, String name, int stateFlag, String createTime,
 			String gendername, String tel, String remark) {
 		super();
 		this.userid = userid;
@@ -117,5 +117,22 @@ public class User {
 	
 	public User(){
 	}
+	
+	public User(String userid, String username, String password, String name, int stateFlag, String createTime,
+			int gender, String gendername, String tel, String remark, String rolename) {
+		super();
+		this.userid = userid;
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.stateFlag = stateFlag;
+		this.createTime = createTime;
+		this.gender = gender;
+		this.gendername = gendername;
+		this.tel = tel;
+		this.remark = remark;
+		this.rolename = rolename;
+	}
+	
 
 }

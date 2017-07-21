@@ -170,7 +170,7 @@ $(function(){
 		submitHandler:function(form){
 			$(form).ajaxSubmit();
 			// 回调父页面
-			parent.location.reload();
+			parent.gridObj.refreshPage();
 			// 先获取窗口索引，才能关闭窗口
 			var index = parent.layer.getFrameIndex(window.name);
 			parent.layer.close(index);

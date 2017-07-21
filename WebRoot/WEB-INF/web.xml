@@ -55,11 +55,11 @@
     <servlet-name>RoleManagement</servlet-name>
     <servlet-class>com.rdp.servlet.auth.RoleManagement</servlet-class>
   </servlet>
-    <servlet>
+  <servlet>
     <servlet-name>UserManagement_rdp</servlet-name>
     <servlet-class>com.rdp.servlet.auth.UserManagement</servlet-class>
   </servlet>
-    <servlet>
+  <servlet>
     <servlet-name>ValiateRoleNameServlet</servlet-name>
     <servlet-class>com.rdp.servlet.auth.ValiateRoleNameServlet</servlet-class>
   </servlet>
@@ -111,11 +111,11 @@
     <servlet-name>RoleManagement</servlet-name>
     <url-pattern>/servlet/auth/RoleManagement</url-pattern>
   </servlet-mapping>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>UserManagement_rdp</servlet-name>
     <url-pattern>/servlet/auth/UserManagement</url-pattern>
   </servlet-mapping>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ValiateRoleNameServlet</servlet-name>
     <url-pattern>/servlet/auth/ValiateRoleNameServlet</url-pattern>
   </servlet-mapping>
@@ -130,5 +130,14 @@
     <filter-name>LoginFilter</filter-name>
     <url-pattern>/test/Panel.jsp</url-pattern>
   </filter-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>ModelManagement</display-name>
+    <servlet-name>ModelManagement</servlet-name>
+    <servlet-class>com.rdp.servlet.auth.ModelManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModelManagement</servlet-name>
+    <url-pattern>/ModelManagement</url-pattern>
+  </servlet-mapping>
 </web-app>
