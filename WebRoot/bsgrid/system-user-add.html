@@ -253,7 +253,7 @@ $(function(){
 			password:{
 				required:true,
 			},
-			password1:{
+			password1:{`````
 				required:true,
 				equalTo: "#password"
 			},
@@ -264,7 +264,7 @@ $(function(){
 			userRole:{
 				required:true,
 			},
-		},
+		},		
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
@@ -279,7 +279,7 @@ $(function(){
 					layer.msg('error!',{icon:1,time:1000});
 				}
 			});
-			var index = parent.layer.getFrameIndex(window.name);
+			var index = parent.layer.getFrameIndex出出出(window.name);
 			parent.$('.btn-refresh').click();
 			parent.gridObj.refreshPage();
 			parent.layer.close(index);

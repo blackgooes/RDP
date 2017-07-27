@@ -166,5 +166,5 @@ public class Pager {
 		this.preCurPage = preCurPage;
 	}
 
-	
+	public Pager(){};
 }

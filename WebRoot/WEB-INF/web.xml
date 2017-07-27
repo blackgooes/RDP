@@ -63,6 +63,14 @@
     <servlet-name>ValiateRoleNameServlet</servlet-name>
     <servlet-class>com.rdp.servlet.auth.ValiateRoleNameServlet</servlet-class>
   </servlet>
+   <servlet>
+    <servlet-name>ModelManagement</servlet-name>
+    <servlet-class>com.rdp.servlet.model.ModelManagement</servlet-class>
+  </servlet>
+     <servlet>
+    <servlet-name>FieldManagement</servlet-name>
+    <servlet-class>com.rdp.servlet.model.FieldManagement</servlet-class>
+  </servlet>
   <servlet>
     <servlet-name>dt</servlet-name>
     <servlet-class>com.rdp.servlet.dt.dt</servlet-class>
@@ -119,6 +127,15 @@
     <servlet-name>ValiateRoleNameServlet</servlet-name>
     <url-pattern>/servlet/auth/ValiateRoleNameServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ModelManagement</servlet-name>
+    <url-pattern>/servlet/model/ModelManagement</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>FieldManagement</servlet-name>
+    <url-pattern>/servlet/model/FieldManagement</url-pattern>
+  </servlet-mapping> 
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
@@ -130,12 +147,7 @@
     <filter-name>LoginFilter</filter-name>
     <url-pattern>/test/Panel.jsp</url-pattern>
   </filter-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ModelManagement</display-name>
-    <servlet-name>ModelManagement</servlet-name>
-    <servlet-class>com.rdp.servlet.auth.ModelManagement</servlet-class>
-  </servlet>
+
   <servlet-mapping>
     <servlet-name>ModelManagement</servlet-name>
     <url-pattern>/ModelManagement</url-pattern>

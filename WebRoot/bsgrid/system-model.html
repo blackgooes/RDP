@@ -48,21 +48,19 @@
     <tr>
     	<th w_num="line" width="2%;"></th>
    	    <th w_check="true" w_index="roleId" width="2%;"></th>
-    	<th w_index="roleId" width="5%;">模型名</th>
-        <th w_index="name" width="5%;">模型标题</th>
-        <th w_index="lv" width="5%;">添加时间</th>
-        <th w_index="remark" w_align="left" width="15%;">操作</th>
-        <th w_render="operate" width="10%;">Operate</th>
+    	<th w_index="name" width="5%;">模型名</th>
+        <th w_index="title" width="5%;">模型标题</th>
+        <th w_index="createtime" width="5%;">添加时间</th>
+        <th w_render="operate" width="10%;">操作</th>
     </tr>
 </table>
 	</div>
 </div>
 <script type="text/javascript">
-   // var localData = [{"roleId":"0ED7F83E93F9417A8464E5A99D9145DC","name":"超级管理员","lv":1},{"roleId":"249F153EFF364D4087059B59118EF9D6","name":"管理员","lv":2},{"roleId":"395EC514E6A44D2DAD5335D6A5039BCA","name":"乡镇单位","lv":3},{"roleId":"C9D854FAFBD34BA5B46B2C486DF43C08","name":"行业主管部门","lv":4},{"roleId":"DCF6973A376948DC8AB91B03133733A4","name":"县重点办","lv":5}];
     var gridObj;
     $(function () {
         gridObj = $.fn.bsgrid.init('searchTable', {
-        	url: '/RDP/servlet/auth/ModelManagement?method=list',
+        	url: '/RDP/servlet/model/ModelManagement?method=list',
             // localData: localData,
             // autoLoad: false,
               pageSizeSelect: true,
@@ -73,7 +71,7 @@
 
     function operate(record, rowIndex, colIndex, options) {
 //    	return '<a title="编辑" href="javascript:;" onclick="system_role_edit(\'编辑角色\',\'system-role-add.html\',\'1\')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' 
-    	return '<a title="编辑" href="javascript:;" onclick="system_role_edit(\'编辑角色\',\'system-role-add.html?ID=' + gridObj.getRecordIndexValue(record, 'roleId') + '&Name='+ gridObj.getRecordIndexValue(record, 'name') +'&Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\',\'1\')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' ;
+    	return '<a title="编辑" href="javascript:;" onclick="system_model_edit(\'编辑角色\',\'system-model-add.html?ID=' + gridObj.getRecordIndexValue(record, 'modelID') + '\',\'1\')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' ;
     	//+ '<a title="删除" href="javascript:;" onclick="system_role_del(this,\'1\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>'
 		//+ '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'roleId') + 'Name='+ gridObj.getRecordIndexValue(record, 'name') +'Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\');">Operate</a>';
     	//return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';

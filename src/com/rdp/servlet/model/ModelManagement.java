@@ -1,4 +1,4 @@
-package com.rdp.servlet.auth;
+package com.rdp.servlet.model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.rdp.dao.auth.AuthDao;
-import com.rdp.entity.Role;
+import com.rdp.dao.model.ModelDao;
+import com.rdp.entity.Model;
 import com.rdp.util.Pager;
 
 /**
@@ -22,7 +22,7 @@ import com.rdp.util.Pager;
  */
 public class ModelManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,31 +37,32 @@ public class ModelManagement extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String method = request.getParameter("method");
-		String idd = request.getQueryString(); 
+		String idd = request.getQueryString();
 		String id = request.getParameter("id");
 		String username = request.getParameter("username");
 		String rolename = request.getParameter("modelName");
 
-		
-		
-		
+
+
+
 		// 获取用户管理界面信息
 		if(method.equals("list")){
-			getList(request,response);	
+			getList(request,response);
 		// 获取角色名（下拉框）
-		}else if(method.equals("getrolename")){
-			getRoleName(request,response);
-		}else if(method.equals("getEditForm")){
-			getEditForm(request,response);
-		}else if(method.equals("edit") && ("null".equals(id))){
-			add(request,response);
-		}else if(method.equals("del")){
-			del(request,response);
-		}else if(method.equals("edit")){
-			edit(request,response);
-		}else if(method.equals("chgFlag")){
-			changeFlag(request,response);
 		}
+//		else if(method.equals("getrolename")){
+//			getRoleName(request,response);
+//		}else if(method.equals("getEditForm")){
+//			getEditForm(request,response);
+//		}else if(method.equals("edit") && ("null".equals(id))){
+//			add(request,response);
+//		}else if(method.equals("del")){
+//			del(request,response);
+//		}else if(method.equals("edit")){
+//			edit(request,response);
+//		}else if(method.equals("chgFlag")){
+//			changeFlag(request,response);
+//		}
 	}
 
 	/**
@@ -71,32 +72,32 @@ public class ModelManagement extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
-	private void getList(HttpServletRequest request,HttpServletResponse response) 
+
+	private void getList(HttpServletRequest request,HttpServletResponse response)
 		    throws ServletException, IOException {
 		response.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
         int curPage = Integer.parseInt(request.getParameter("curPage"));
-		AuthDao aDao = new AuthDao();
+		ModelDao mDao = new ModelDao();
 		// 获取全部角色
-//		List<Role> rolelist = aDao.getRole();
-		Pager pager = aDao.getPageRole(curPage, pageSize);
+//		List<Role> modellist = aDao.getRole();
+		Pager pager = mDao.getPageModel(curPage, pageSize);
 		PrintWriter out = response.getWriter();
-		List<Role> rolelist = pager.getResultList();
+		List<Model> modellist = pager.getResultList();
 		// 当前页pagesize
-//		pageSize = pager.getEndIndex() - pager.getStartIndex();       
+//		pageSize = pager.getEndIndex() - pager.getStartIndex();
         int totalRows = pager.getRowCount();
         Object flag = "true";
 	    Map<Object, Object> info = new HashMap<Object, Object>();
 	    String data="";
 	    if(totalRows != 0)
-	    {	    	
+	    {
 		    info.put("success", flag);
 //		    info.put("pageSizeForGrid", pageSize);
 		    info.put("totalRows", totalRows);
 		    info.put("curPage", curPage);
-		    info.put("data", rolelist);
+		    info.put("data", modellist);
 	    }
 	    else
 	    {
@@ -107,12 +108,12 @@ public class ModelManagement extends HttpServlet {
 //	    request.setAttribute("pager", pager);
 
 		String json = new Gson().toJson(info);
-        response.setContentType("application/json; charset=utf-8");  
+        response.setContentType("application/json; charset=utf-8");
         response.setHeader("pragma", "no-cache");
-        response.setHeader("cache-control", "no-cache");  
+        response.setHeader("cache-control", "no-cache");
 		out.print(json);
 		out.close();
-		
+
 	}
 
 }

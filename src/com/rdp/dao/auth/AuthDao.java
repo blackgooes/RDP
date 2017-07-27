@@ -135,9 +135,10 @@ public class AuthDao {
 		return true;		
 	}
 	/**
-	 * 获取所有角色
-	 * @param user
-	 * @return
+	 * 
+	 * @param curPage
+	 * @param pageSize
+	 * @return Pager(pageSize, curPage, count, rolelist)
 	 */
 	public Pager getPageRole(int curPage,int pageSize){
 		List<Role> rolelist = new ArrayList<Role>();

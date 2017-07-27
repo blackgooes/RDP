@@ -1,6 +1,6 @@
-﻿<!--_meta 作为公共模版分离出去-->
-<!DOCTYPE HTML>
-<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -18,6 +18,22 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" href="builds/merged/bsgrid.all.min.css"/>
+    <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="builds/js/lang/grid.zh-CN.min.js"></script>
+    <script type="text/javascript" src="builds/merged/bsgrid.all.min.js"></script>
+    <script type="text/javascript">
+	// 解析url参数
+	function GetQueryString(name)
+	{
+		//decodeURI
+	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	     var r = window.location.search.substr(1).match(reg);
+	     if(r!=null)return  decodeURI(r[2]); return null;
+	
+	}
+
+	</script>
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -40,52 +56,59 @@
             	<a href="javascript:;" onclick="field_add('添加字段','system-field-add.html','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加字段</a>
             </span>
 		</div>
-		<div class="mt-20">
-		<table class="table table-border table-bordered table-bg table-hover table-sort">
-			<thead>
-            <tr>
-				<th scope="col" colspan="10">模型管理</th>
-			</tr>
+	<div style="text-align: center">
+<table id="searchTable">
+    <tr>
+    	<th w_num="line" width="2%;"></th>
+   	    <th w_check="true" w_index="roleId" width="2%;"></th>
+    	<th w_index=id width="5%;">字段标签</th>
+        <th w_index="name" width="5%;">字段标识</th>
+        <th w_index="type" width="5%;">字段类型</th>
+		<th w_index="length" width="5%;">长度</th>
+		<th w_index="isNull" width="5%;">是否必填</th>
+		<th w_index="defaultValue" width="5%;">默认值</th>
+		<th w_index="isShow" width="5%;">列表显示</th>
+        <th w_render="operate" width="10%;">操作</th>
+    </tr>
+</table>
+
 				<tr class="text-c">
-					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="100">字段标签</th>
-					<th width="100">字段标识</th>
-                    <th width="100">字段类型</th>
-                    <th width="100">长度</th>
-                    <th width="100">是否必填</th>
-					<th width="100">默认值</th>
-                    <th width="100">列表显示</th>
-                    <th></th>
-					<th width="100">操作</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="text-c">
-					<td><input type="checkbox" value="" name=""></td>
-					<td></td>
-					<td></td>
-					<td></td>
-                    <td></td>
-					<td></td>
-					<td></td>
-                    <td></td>
-					<td></td>
 					<td class="f-14">
                     	<a title="编辑" href="javascript:;" onclick="field_edit('编辑','system-field-add.html','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
 						<a title="删除" href="javascript:;" onclick="field_del(this,'10001')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                     </td>
 				</tr>
-			</tbody>
-		</table>
-	</div>
-		
-	</form>
-</article>
 
+		</table>
+	</div>	
+
+<script type="text/javascript">
+   // var localData = [{"roleId":"0ED7F83E93F9417A8464E5A99D9145DC","name":"超级管理员","lv":1},{"roleId":"249F153EFF364D4087059B59118EF9D6","name":"管理员","lv":2},{"roleId":"395EC514E6A44D2DAD5335D6A5039BCA","name":"乡镇单位","lv":3},{"roleId":"C9D854FAFBD34BA5B46B2C486DF43C08","name":"行业主管部门","lv":4},{"roleId":"DCF6973A376948DC8AB91B03133733A4","name":"县重点办","lv":5}];
+    var gridObj;
+    $(function () {
+        gridObj = $.fn.bsgrid.init('searchTable', {
+        	url: '/RDP/servlet/model/FieldManagement?method=list&ID='+GetQueryString("ID"),
+            // localData: localData,
+            // autoLoad: false,
+              pageSizeSelect: true,
+              pageSize: 5,
+              displayBlankRows: false
+        });
+    });
+
+    function operate(record, rowIndex, colIndex, options) {
+//    	return '<a title="编辑" href="javascript:;" onclick="system_role_edit(\'编辑角色\',\'system-role-add.html\',\'1\')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' 
+    	return '<a title="编辑" href="javascript:;" onclick="system_role_edit(\'编辑角色\',\'system-model-add.html?ID=' + gridObj.getRecordIndexValue(record, 'roleId') + '&Name='+ gridObj.getRecordIndexValue(record, 'name') +'&Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\',\'1\')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' ;
+    	//+ '<a title="删除" href="javascript:;" onclick="system_role_del(this,\'1\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>'
+		//+ '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'roleId') + 'Name='+ gridObj.getRecordIndexValue(record, 'name') +'Remark='+ gridObj.getRecordIndexValue(record, 'remark') + '\');">Operate</a>';
+    	//return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
+    }
+</script>
+               
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+
 <script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->

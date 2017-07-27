@@ -15,9 +15,9 @@ import com.rdp.util.Pager;
 public class UserDao {
 
 	/**
-	 * 获取所有角色
-	 * @param user
-	 * @return
+	 * 获取所有用户
+	 * @param 
+	 * @return user
 	 */
 	public Pager getPageUser(int curPage,int pageSize){
 		List<User> userlist = new ArrayList<User>();
